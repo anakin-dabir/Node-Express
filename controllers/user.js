@@ -43,7 +43,18 @@ export const getUser = async (req, res) => {
 }
 
 // populate return me pora document along with chilren return krta hai
-/* nested 
+/* nested population be like:
+   const user = await User.find().populate({
+        path:'posts',
+        populate:{
+            path:'omments'
+        }
+    })
+    .exec();
+        
+        
+        
+*/
 
 
 //User.create(req.body);
