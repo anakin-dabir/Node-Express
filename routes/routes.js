@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, getUser } from '../controllers/user';
+import { register, login, getUser, deleteUser } from '../controllers/user';
 
 
 export const userRoute = express.Router();
@@ -8,6 +8,7 @@ export const userRoute = express.Router();
 
 userRoute.post('/register', register);
 userRoute.post('/login', login);
-userRoute.get('/getUser', getUser)
+userRoute.get('/getUser', getUser);
+userRoute.delete('/deleteUser/:userId', deleteUser);
 
 

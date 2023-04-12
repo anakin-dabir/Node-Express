@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import User from '../models/user';
 
 export const register = async (req, res) => {
@@ -30,8 +31,10 @@ export const login = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
-        const user = await User.find({});
-        console.log(user);
+        const user = await User.find().populate('posts').exec();
+        if (!user) {
+            return res.status(404).json({ msg: 'Not found' });
+        }
         return res.status(200).json(user);
     }
     catch (err) {
@@ -39,4 +42,21 @@ export const getUser = async (req, res) => {
     }
 }
 
+// populate return me pora document along with chilren return krta hai
+/* nested 
+
+
 //User.create(req.body);
+
+
+export const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        await User.findByIdAndRemove(userId);
+        // await mongoose.model('Post').deleteMany({ author: userId });
+        return res.status(200).json({ msg: 'Deleted' });
+    }
+    catch (err) {
+        return res.status(500).json(err);
+    }
+}

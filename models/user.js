@@ -5,9 +5,24 @@ const UserSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    created: { type: Date, default: Date.now }
+    // created: { type: Date, default: Date.now },
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
+    }]
 },
+    { timestamps: true }
 )
+
+UserSchema.pre('deleteMany', async (next) => {
+    try {
+        await this.model('Post').deleteMany({ author: this._id });
+        next();
+    }
+    catch (err) {
+        next(err);
+    }
+})
 
 // => mongoose.model defines a new model in collection
 export default mongoose.model('User', UserSchema);

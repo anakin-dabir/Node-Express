@@ -4,10 +4,11 @@ import connectDb from './db';
 import Template from './templates';
 import { userRoute } from './routes/routes';
 import express from 'express';
-
+import { postRoute } from './routes/post';
 
 //app.get('/', (req, res) => res.send("<h1>Dashboard</h1>"));
 app.use('/user', userRoute);
+app.use('/post', postRoute);
 
 // app.get('/', (req, res) => {
 //     res.status(400).json('User error');
